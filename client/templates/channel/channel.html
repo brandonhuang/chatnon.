@@ -1,0 +1,25 @@
+<template name="channel">
+  <div class="wrap">
+    <div id="chat">
+      <header>
+        <div id="color">
+          <div id="user-color"></div>
+        </div>
+        <div id="users">
+          <span id="users-online"></span>
+          <i class="icon-user"></i>
+        </div>
+        <div id="name">
+        <i id="lock" class="icon-lock-open unlocked"></i>
+          <span id="tag" type="text" autocomplete="off" maxlength="12" contenteditable="true"></span>
+        </div>
+      </header>
+      <div id="messages"></div>
+      {{> messageForm}}
+    </div>
+    <div id="map">
+      <div id="map-container"></div>
+      <div id="mobile-arrow"><i class="icon-down-open"></i></div>
+    </div>
+  </div>
+</template>
