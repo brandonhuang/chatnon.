@@ -14,7 +14,11 @@
           <span id="tag" type="text" autocomplete="off" maxlength="12" contenteditable="true"></span>
         </div>
       </header>
-      <div id="messages"></div>
+      <div id="messages">
+        {{#each messages}}
+          {{> message}}
+        {{/each}}
+      </div>
       {{> messageForm}}
     </div>
     <div id="map">
