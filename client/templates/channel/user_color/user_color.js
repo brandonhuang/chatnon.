@@ -1,6 +1,7 @@
 Template.userColor.helpers({
   color: function() {
-    return Meteor.user().color;
+    if(Meteor.user())
+      return Meteor.user().color;
   }
 });
 
