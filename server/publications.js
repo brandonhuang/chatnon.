@@ -12,5 +12,5 @@ Meteor.publish('users', function() {
 });
 
 Meteor.publish('messages', function() {
-  return messages.find();
+  return messages.find({}, {sort: {createdAt: -1}, limit: 100});
 });
