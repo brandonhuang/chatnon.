@@ -20,17 +20,16 @@ Template.message.onCreated(function() {
 // There seem to be some problems with onRender being called twice
 // onCreated is a quick fix to a problem I don't know how to solve elegantly
 
+Template.message.onCreated(function() {
+  console.log('created')
+});
+
 Template.message.onRendered(function() {
+  console.log('rendered')
   var currentScrollBottom = $('#messages').scrollTop() + $('#messages').height();
   var currentScrollHeight = $('#messages')[0].scrollHeight;
 
   if(currentScrollBottom >= currentScrollHeight - 100) {
     $('#messages').scrollTop($('#messages')[0].scrollHeight);
   }
-});
-
-Meteor.startup(function() {
-  setTimeout(function() {
-    $('#messages').scrollTop($('#messages')[0].scrollHeight);
-  }, 2000);
 });
