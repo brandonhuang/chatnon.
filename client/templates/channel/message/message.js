@@ -24,3 +24,9 @@ Template.message.onRendered(function() {
     $('#messages').scrollTop($('#messages').prop("scrollHeight"));
   }
 });
+
+Template.message.helpers({
+  level: function() {
+    return Meteor.users.findOne({username: this.username}).level;
+  }
+});

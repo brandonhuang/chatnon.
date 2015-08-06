@@ -1,6 +1,9 @@
 <template name="message">
   <div class="message" style="background-color: {{color}}">
-    <div class="tag" style="color: {{color}}">{{username}}</div>
+    <div class="tag" style="color: {{color}}">
+      <div class="level">{{level}}</div>
+      {{username}}
+    </div>
     {{text}}
   </div>
 </template>
