@@ -6,7 +6,8 @@ Meteor.publish('users', function() {
       'color': 1,
       'level': 1,
       'exp': 1,
-      'status': 1
+      'status': 1,
+      'location': 1,
     }
   });
 });

@@ -2,6 +2,7 @@ Accounts.onCreateUser(function(options, user) {
   user.color = generateColor();
   user.level = 1;
   user.exp = 0;
+  user.location = {};
 
   // Turnicate usernames if greater than 14
   if(user.username.length > 14) {

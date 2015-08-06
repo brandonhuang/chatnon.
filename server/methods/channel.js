@@ -16,6 +16,9 @@ Meteor.methods({
   },
   newColor: function() {
     var color = generateColor();
-    Meteor.users.update({_id: Meteor.userId()}, {$set: {color: color}})
+    Meteor.users.update({_id: Meteor.userId()}, {$set: {color: color}});
+  },
+  updateLocation: function(location) {
+    Meteor.users.update({_id: Meteor.userId()}, {$set: {location: location}});
   }
 });
