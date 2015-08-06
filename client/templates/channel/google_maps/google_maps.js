@@ -40,6 +40,8 @@ function geoSuccess(location) {
 };
 
 function addMarker(user) {
+  if($.isEmptyObject(user.location)) return;
+
   var latlng = new google.maps.LatLng(user.location.latitude, user.location.longitude);
   var marker = new UserMarker({
     id: user.username,
@@ -50,6 +52,8 @@ function addMarker(user) {
   markers.push(marker);
 }
 function removeMarker(user) {
+  if($.isEmptyObject(user.location)) return;
+
   for(var i = 0; i < markers.length; i++) {
     if(markers[i].id == user.username) {
       markers[i].setMap(null);
