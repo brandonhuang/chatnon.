@@ -1,25 +1,35 @@
-var interval = 60000;
+var shortInterval = 60000;
 
 Meteor.setInterval(function() {
-  var users = Meteor.users.find({ "status.online": true }).fetch();
+  var users = Meteor.users.find({ 'status.online': true }).fetch();
 
   users.forEach(function(user) {
-    var exp = user.exp + 1
-    Meteor.users.update({username: user.username}, {$set: {exp: exp}});
+    var lastMessage = messages.findOne({username: user.username}, {sort: {createdAt: -1}});
+    var exp = 0;
 
-    lastMessage = messages.findOne({username: user.username}, {sort: {createdAt: -1}});
+    if(lastMessage === undefined) return;
 
-    if(lastMessage.createdAt > new Date() - interval) {
-      var exp = user.exp + 10;
-      Meteor.users.update({username: user.username}, {$set: {exp: exp}});
+    if(lastMessage.createdAt > new Date() - shortInterval) { // If user is super active
+      exp += 21;
+    }
+    else if(lastMessage.createdAt > new Date() - 600000) { // If user is active
+      exp += 20;
+    }
+    else if(lastMessage.createdAt > new Date() - 1800000) { // If user is somewhat active
+      exp += 10;
+    }
+    else { // If user is online, but idle
+      exp++;
     }
 
-    if(user.exp >= user.level * 500 ) {
-      Meteor.users.update({username: user.username}, {$set: {exp: 0}});
-      var level = user.level + 1;
-      Meteor.users.update({username: user.username}, {$set: {level: level}});
+    Meteor.call('expUp', user, exp);
+
+    // Level up if user meets exp requirements
+    if(user.exp >= Math.pow((user.level * 100), 1.2)) {
+      Meteor.call('expReset', user);
+      Meteor.call('levelUp', user);
     }
 
-    console.log(user.level, user.exp);
+    console.log(user.username, user.level, user.exp);
   });
-}, interval);
+}, shortInterval);

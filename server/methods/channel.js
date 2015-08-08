@@ -20,5 +20,14 @@ Meteor.methods({
   },
   updateLocation: function(location) {
     Meteor.users.update({_id: Meteor.userId()}, {$set: {location: location}});
+  },
+  levelUp: function(user) {
+    Meteor.users.update({username: user.username}, {$set: {level: user.level + 1}});
+  },
+  expUp: function(user, exp) {
+    Meteor.users.update({username: user.username}, {$set: {exp: user.exp + exp}})
+  },
+  expReset: function(user) {
+    Meteor.users.update({username: user.username}, {$set: {exp: 0}})
   }
 });

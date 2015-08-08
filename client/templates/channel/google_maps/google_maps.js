@@ -17,10 +17,6 @@ Template.googleMaps.onRendered(function() {
 
   Meteor.users.find({ "status.online": true }).observe({
     added: addMarker,
-    changed: function(user) {
-      removeMarker(user);
-      addMarker(user);
-    },
     removed: removeMarker
   })
 });
