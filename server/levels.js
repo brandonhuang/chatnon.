@@ -29,7 +29,5 @@ Meteor.setInterval(function() {
       Meteor.call('expReset', user);
       Meteor.call('levelUp', user);
     }
-
-    console.log(user.username, user.level, user.exp);
   });
 }, shortInterval);
