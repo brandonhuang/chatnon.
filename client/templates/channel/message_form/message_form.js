@@ -1,5 +1,6 @@
 var msgCount = 0;
 var msgCache = [];
+var timeout = false;
 
 Template.messageForm.events({
   'submit form': function(e) {
@@ -11,10 +12,11 @@ Template.messageForm.events({
 
     $('#m').val("");
 
-    // Validate
-    if(isEmpty(message.text)) return;
-    if(isTooFast(msgCount)) return;
-    if(isRepetitive(message.text)) return;
+    // check timeout
+    if(timeout) return;
+
+    // check validations
+    if(!validate(message)) return;
 
     msgCount++;
     cacheMessage(message.text);
@@ -27,9 +29,33 @@ Template.messageForm.events({
 
 setInterval(function() {
   if(msgCount > 0) msgCount--;
-  console.log(msgCache);
 }, 3000);
 
+function validate(message) {
+  // punitive validations
+  if(isRepetitive(message.text)) {
+    userTimeout(30000);
+    alert('Please refrain from repeating the same message.');
+  }
+
+  // non-punitive validations
+  if(isEmpty(message.text)) return false;
+  if(isTooFast(msgCount)) return false;
+
+  return true;
+}
+
+function userTimeout(duration) {
+  // TODO: increase duration depending on infractions and a users upvotes/downvotes
+  timeoutDuration = duration;
+
+  timeout = true;
+  setTimeout(function() {
+    timeout = false;
+  }, ms);
+}
+
+// Validation functions
 function cacheMessage(text) {
   if(msgCache.length < 3) {
     msgCache.push(text);
