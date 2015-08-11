@@ -7,7 +7,7 @@ Template.messageForm.events({
     e.preventDefault();
 
     var message = {
-      text: $('#m').val()
+      text: $('#m').val().trim()
     }
 
     $('#m').val("");
@@ -74,7 +74,7 @@ function isTooFast(msgCount) {
 }
 
 function isEmpty(text) {
-  if(text.trim()) {
+  if(text) {
     return false;
   } else {
     return true;
