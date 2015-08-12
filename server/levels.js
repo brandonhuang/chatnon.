@@ -10,16 +10,10 @@ Meteor.setInterval(function() {
     if(lastMessage === undefined) return;
 
     if(lastMessage.createdAt > new Date() - shortInterval) { // If user is super active
-      exp += 21;
+      exp += 2;
     }
-    else if(lastMessage.createdAt > new Date() - 600000) { // If user is active
+    else if(lastMessage.createdAt > new Date() - 300000) { // If user is active
       exp += 20;
-    }
-    else if(lastMessage.createdAt > new Date() - 1800000) { // If user is somewhat active
-      exp += 10;
-    }
-    else { // If user is online, but idle
-      exp++;
     }
 
     Meteor.call('expUp', user, exp);
