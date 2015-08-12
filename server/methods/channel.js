@@ -4,6 +4,7 @@ Meteor.methods({
 
     check(messageAttributes, {
       text: String,
+      channel: String
     });
 
     var message = _.extend(messageAttributes, {

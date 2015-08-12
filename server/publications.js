@@ -12,6 +12,10 @@ Meteor.publish('users', function() {
   });
 });
 
-Meteor.publish('messages', function() {
-  return messages.find({}, {sort: {createdAt: -1}, limit: 100});
+Meteor.publish('messages', function(channel) {
+  return messages.find({channel: channel}, {sort: {createdAt: -1}, limit: 100});
+});
+
+Meteor.publish('channels', function() {
+  return channels.find({});
 });
