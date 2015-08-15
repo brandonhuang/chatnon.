@@ -17,18 +17,18 @@ Meteor.methods({
   },
   newColor: function() {
     var color = generateColor();
-    Meteor.users.update({_id: Meteor.userId()}, {$set: {color: color}});
+    Meteor.users.update(Meteor.userId(), {$set: {color: color}});
   },
   updateLocation: function(location) {
-    Meteor.users.update({_id: Meteor.userId()}, {$set: {location: location}});
+    Meteor.users.update(Meteor.userId(), {$set: {location: location}});
   },
   levelUp: function(user) {
-    Meteor.users.update({username: user.username}, {$set: {level: user.level + 1}});
+    Meteor.users.update(Meteor.userId(), {$set: {level: user.level + 1}});
   },
   expUp: function(user, exp) {
-    Meteor.users.update({username: user.username}, {$set: {exp: user.exp + exp}})
+    Meteor.users.update(Meteor.userId(), {$set: {exp: user.exp + exp}})
   },
   expReset: function(user) {
-    Meteor.users.update({username: user.username}, {$set: {exp: 0}})
+    Meteor.users.update(Meteor.userId(), {$set: {exp: 0}})
   }
 });
