@@ -8,6 +8,7 @@ Meteor.publish('users', function() {
       'exp': 1,
       'status': 1,
       'location': 1,
+      'channels': 1
     }
   });
 });

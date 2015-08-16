@@ -15,6 +15,28 @@ Meteor.methods({
 
     var messageId = messages.insert(message);
   },
+  connectChannel: function(channel) {
+    console.log(Meteor.userId(), 'connected to', channel);
+
+    var channelName = 'channels.' + channel + '.online';
+    var update = { "$set" : { } };
+    update["$set"][channelName] = true;
+
+    Meteor.users.update(Meteor.userId(), update);
+  },
+  disconnectChannel: function(channel, userId) {
+    if(userId === undefined) {
+      userId = Meteor.userId();
+    }
+
+    console.log(userId, 'disconnected from', channel);
+
+    var channelName = 'channels.' + channel + '.online';
+    var update = { "$set" : { } };
+    update["$set"][channelName] = false;
+
+    Meteor.users.update(userId, update);
+  },
   newColor: function() {
     var color = generateColor();
     Meteor.users.update(Meteor.userId(), {$set: {color: color}});

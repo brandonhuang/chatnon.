@@ -15,7 +15,7 @@ Template.googleMaps.onRendered(function() {
 
   map = new google.maps.Map(document.getElementById('map-container'), mapOptions);
 
-  Meteor.users.find({ "status.online": true }).observe({
+  Meteor.users.find(inChannel()).observe({
     added: addMarker,
     removed: removeMarker
   })

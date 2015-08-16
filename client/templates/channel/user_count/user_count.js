@@ -1,5 +1,5 @@
 Template.userCount.helpers({
   users: function() {
-    return Meteor.users.find({ "status.online": true }).count();
+    return Meteor.users.find(inChannel()).count();
   }
 });
