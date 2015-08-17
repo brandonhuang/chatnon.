@@ -59,6 +59,5 @@ Meteor.methods({
     update["$inc"][property] = exp;
 
     Meteor.users.update(user._id, update);
-    console.log(user.username, user.channels);
   }
 });
