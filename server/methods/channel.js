@@ -18,11 +18,20 @@ Meteor.methods({
   connectChannel: function(channel) {
     console.log(Meteor.userId(), 'connected to', channel);
 
-    var channelName = 'channels.' + channel + '.online';
+    var propName = 'channels.' + channel + '.online';
     var update = { "$set" : { } };
-    update["$set"][channelName] = true;
+    update["$set"][propName] = true;
 
     Meteor.users.update(Meteor.userId(), update);
+
+    var channelExp = Meteor.user().channels[channel].exp;
+    if(channelExp === undefined) {
+      var propName = 'channels.' + channel + '.exp';
+      var update = { "$set" : {} };
+      update['$set'][propName] = 0;
+
+      Meteor.users.update(Meteor.userId(), update);
+    }
   },
   disconnectChannel: function(channel, userId) {
     if(userId === undefined) {
@@ -44,13 +53,12 @@ Meteor.methods({
   updateLocation: function(location) {
     Meteor.users.update(Meteor.userId(), {$set: {location: location}});
   },
-  levelUp: function(user) {
-    Meteor.users.update(Meteor.userId(), {$set: {level: user.level + 1}});
-  },
-  expUp: function(user, exp) {
-    Meteor.users.update(Meteor.userId(), {$set: {exp: user.exp + exp}})
-  },
-  expReset: function(user) {
-    Meteor.users.update(Meteor.userId(), {$set: {exp: 0}})
+  expUp: function(user, channel, exp) {
+    var property = 'channels.' + channel + '.exp';
+    var update = { "$inc" : {} };
+    update["$inc"][property] = exp;
+
+    Meteor.users.update(user._id, update);
+    console.log(user.username, user.channels);
   }
 });

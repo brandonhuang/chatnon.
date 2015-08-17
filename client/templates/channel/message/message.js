@@ -27,6 +27,17 @@ Template.message.onRendered(function() {
 
 Template.message.helpers({
   level: function() {
-    return Meteor.users.findOne({username: this.username}).level;
+    var channel = Session.get('channel');
+    var exp = Meteor.users.findOne({username: this.username}).channels[channel].exp;
+
+    var level = 1;
+    var comparator = 10;
+    while(exp > comparator) {
+      comparator = Math.pow(level * 10, 1.5);
+      level += 1;
+      exp -= comparator;
+    }
+
+    return level;
   }
 });

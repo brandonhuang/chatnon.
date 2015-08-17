@@ -11,8 +11,6 @@ Accounts.validateNewUser(function (user) {
 
 Accounts.onCreateUser(function(options, user) {
   user.color = generateColor();
-  user.level = 1;
-  user.exp = 0;
   user.location = {};
   user.channels = {};
 
