@@ -20,7 +20,7 @@ Meteor.publish('messages', function(channel) {
     Meteor.call('connectChannel', channel, userId);
 
     this.onStop(function() {
-      console.log('publich onStop');
+      console.log('publich onStop', channel, userId);
       Meteor.call('disconnectChannel', channel, userId);
     });
   }

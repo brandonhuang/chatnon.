@@ -25,10 +25,6 @@ Meteor.methods({
     Meteor.users.update(userId, update);
   },
   disconnectChannel: function(channel, userId) {
-    if(userId === undefined) {
-      userId = Meteor.userId();
-    }
-
     console.log(userId, 'disconnected from', channel);
 
     var channelName = 'channels.' + channel + '.online';
