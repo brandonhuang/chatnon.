@@ -8,7 +8,7 @@ Template.messageForm.events({
 
     var message = {
       text: $('#m').val(),
-      channel: UserSession.get(sessionId())
+      channel: Session.get('channel')
     }
 
     $('#m').val("");

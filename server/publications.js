@@ -14,6 +14,17 @@ Meteor.publish('users', function() {
 });
 
 Meteor.publish('messages', function(channel) {
+  if(this.userId) {
+    var userId = this.userId;
+
+    Meteor.call('connectChannel', channel, userId);
+
+    this.onStop(function() {
+      console.log('publich onStop');
+      Meteor.call('disconnectChannel', channel, userId);
+    });
+  }
+
   return messages.find({channel: channel}, {sort: {createdAt: -1}, limit: 100});
 });
 

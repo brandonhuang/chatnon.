@@ -15,23 +15,14 @@ Meteor.methods({
 
     var messageId = messages.insert(message);
   },
-  connectChannel: function(channel) {
-    console.log(Meteor.userId(), 'connected to', channel);
+  connectChannel: function(channel, userId) {
+    console.log(userId, 'connected to', channel);
 
     var propName = 'channels.' + channel + '.online';
     var update = { "$set" : { } };
     update["$set"][propName] = true;
 
-    Meteor.users.update(Meteor.userId(), update);
-
-    var channelExp = Meteor.user().channels[channel].exp;
-    if(channelExp === undefined) {
-      var propName = 'channels.' + channel + '.exp';
-      var update = { "$set" : {} };
-      update['$set'][propName] = 0;
-
-      Meteor.users.update(Meteor.userId(), update);
-    }
+    Meteor.users.update(userId, update);
   },
   disconnectChannel: function(channel, userId) {
     if(userId === undefined) {

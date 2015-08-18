@@ -1,0 +1,21 @@
+<template name="loading">
+  <div class="wrap">
+    <div id="chat">
+      <header>
+        {{> userColor}}
+        {{> userCount}}
+        {{> userLogin}}
+      </header>
+      <div id="messages">
+        {{#each messages}}
+          {{> message}}
+        {{/each}}
+      </div>
+      {{#if currentUser}}
+        {{> messageForm}}
+      {{else}}
+        {{> messageFormLogin}}
+      {{/if}}
+    </div>
+  </div>
+</template>
