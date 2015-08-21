@@ -16,22 +16,50 @@ Meteor.methods({
     var messageId = messages.insert(message);
   },
   connectChannel: function(channel, userId) {
-    console.log(userId, 'connected to', channel);
 
-    var propName = 'channels.' + channel + '.online';
-    var update = { "$set" : { } };
-    update["$set"][propName] = true;
+    var channelName = 'channels.' + channel;
+    var update = {'$set': {}, '$inc': {}};
+    update['$set'][channelName + '.online'] = true;
+    update['$inc'][channelName + '.connections'] = 1;
 
     Meteor.users.update(userId, update);
+
+    var user = Meteor.users.findOne(userId);
+    if(user.channels[channel].connections <= 1)
+      console.log(user.username, 'connected to', channel);
   },
   disconnectChannel: function(channel, userId) {
-    console.log(userId, 'disconnected from', channel);
+    Meteor.setTimeout(function() {
+      var user = Meteor.users.findOne(userId);
+      var channelName = 'channels.' + channel;
 
-    var channelName = 'channels.' + channel + '.online';
-    var update = { "$set" : { } };
-    update["$set"][channelName] = false;
+      // Decrement channel connection and set channel.online: false if less than 1
+      // Do cleanup if user is offline
+      if(!user.status.online) {
+        var update = {'$set': {}};
 
-    Meteor.users.update(userId, update);
+        // Prevent $set is empty error
+        update['$set'][channelName + '.online'] = false;
+
+        for(var i in user.channels) {
+          if(user.channels[i].online === true) {
+            update['$set']['channels.' + i + '.online'] = false;
+            update['$set']['channels.' + i + '.connections'] = 0;
+          }
+        }
+      } else if(user.channels[channel].connections <= 1) {
+        console.log(user.username, 'disconnected from', channel);
+
+        var update = {'$set': {}};
+        update['$set'][channelName + '.online'] = false;
+        update['$set'][channelName + '.connections'] = 0;
+      } else {
+        var update = {'$inc': {}};
+        update['$inc'][channelName + '.connections'] = -1;
+      }
+
+      Meteor.users.update(userId, update);
+    }, 500);
   },
   newColor: function() {
     var color = generateColor();
@@ -42,8 +70,8 @@ Meteor.methods({
   },
   expUp: function(user, channel, exp) {
     var property = 'channels.' + channel + '.exp';
-    var update = { "$inc" : {} };
-    update["$inc"][property] = exp;
+    var update = {'$inc': {}};
+    update['$inc'][property] = exp;
 
     Meteor.users.update(user._id, update);
   }

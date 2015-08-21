@@ -13,7 +13,7 @@ Meteor.setInterval(function() {
 
     if(lastMessage === undefined) return;
 
-    if(lastMessage.createdAt > new Date() - 60000) { // If user is active
+    if(lastMessage.createdAt > new Date() - 600000) { // If user is active
       exp += 1;
     }
 
