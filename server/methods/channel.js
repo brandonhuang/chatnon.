@@ -36,6 +36,7 @@ Meteor.methods({
       // Decrement channel connection and set channel.online: false if less than 1
       // Do cleanup if user is offline
       if(!user.status.online) {
+        console.log(user.username, 'disconnected from', channel);
         var update = {'$set': {}};
 
         // Prevent $set is empty error
