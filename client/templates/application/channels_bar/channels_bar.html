@@ -1,5 +1,7 @@
 <template name="channelsBar">
-  {{#each channels}}
-    <a href="/{{channel.name}}">{{channel.name}}</a>
-  {{/each}}
+  <div class="channels-bar">
+    {{#each channels}}
+      <a href="/{{name}}">{{name}}</a>
+    {{/each}}
+  </div>
 </template>
