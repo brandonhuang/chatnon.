@@ -16,6 +16,7 @@ Meteor.methods({
     var messageId = messages.insert(message);
   },
   connectChannel: function(channel, userId) {
+    if(channel.length > 20) return;
 
     var channelName = 'channels.' + channel;
     var update = {'$set': {}, '$inc': {}};
@@ -37,6 +38,8 @@ Meteor.methods({
     }
   },
   disconnectChannel: function(channel, userId) {
+    if(channel.length > 20) return;
+
     Meteor.setTimeout(function() {
       var user = Meteor.users.findOne(userId);
       var channelName = 'channels.' + channel;
