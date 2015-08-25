@@ -25,8 +25,16 @@ Meteor.methods({
     Meteor.users.update(userId, update);
 
     var user = Meteor.users.findOne(userId);
-    if(user.channels[channel].connections <= 1)
+    if(user.channels[channel].connections <= 1) {
       console.log(user.username, 'connected to', channel);
+
+      // Increment usersOnline field for channel
+      if(channels.find({name: channel}).count()) {
+        channels.update({name: channel}, {$inc: {usersOnline: 1}});
+      } else {
+        channels.insert({name: channel, usersOnline: 1});
+      }
+    }
   },
   disconnectChannel: function(channel, userId) {
     Meteor.setTimeout(function() {
@@ -48,12 +56,18 @@ Meteor.methods({
             update['$set']['channels.' + i + '.connections'] = 0;
           }
         }
+
+        // Decrement usersOnline for channel
+        channels.update({name: channel}, {$inc: {usersOnline: -1}});
       } else if(user.channels[channel].connections <= 1) {
         console.log(user.username, 'disconnected from', channel);
 
         var update = {'$set': {}};
         update['$set'][channelName + '.online'] = false;
         update['$set'][channelName + '.connections'] = 0;
+
+        // Decrement usersOnline for channel
+        channels.update({name: channel}, {$inc: {usersOnline: -1}});
       } else {
         var update = {'$inc': {}};
         update['$inc'][channelName + '.connections'] = -1;

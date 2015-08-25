@@ -1,5 +1,5 @@
 Template.userCount.helpers({
   users: function() {
-    return Meteor.users.find(inChannel()).count();
+    return channels.findOne({name: Session.get('channel')}).usersOnline;
   }
 });
