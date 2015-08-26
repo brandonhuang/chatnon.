@@ -27,8 +27,7 @@ Template.message.onRendered(function() {
 
 Template.message.helpers({
   level: function() {
-    var channel = Session.get('channel');
-    var exp = Meteor.users.findOne({username: this.username}).channels[channel].exp;
+    var exp = Meteor.users.findOne({username: this.username}).channels[this.channel].exp || 0;
 
     var level = 1;
     var comparator = 10;
