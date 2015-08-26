@@ -14,19 +14,26 @@ body {
 }
 
 .channels-bar {
-  height: 25px;
+  height: 30px;
   width: 100%;
+  line-height: 30px;
+  padding: 0 10px;
 
   a {
     color: white;
-    padding: 0 5px;
+    text-decoration: none;
+    font-size: 0.8em;
+    text-transform: uppercase;
+  }
+  .hyphen {
+    padding: 0 3px;
   }
 }
 
 .wrap {
   position: relative;
   width: 100%;
-  height: calc(100% - 25px);
+  height: calc(100% - 30px);
   margin: 0 auto;
   margin-top: 0;
 }
