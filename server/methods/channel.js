@@ -22,6 +22,12 @@ Meteor.methods({
     // Channel name validations
     if(channel.length > 20) return;
 
+    // Create channel if it doesn't exist
+    if(channels.find({name: channel}).count() === 0) {
+      var profane = swearjar.profane(channel);
+      channels.insert({name: channel, usersOnline: 0, profane: profane});
+    }
+
     var channelName = 'channels.' + channel;
     var update = {'$set': {}, '$inc': {}};
     update['$set'][channelName + '.online'] = true;
@@ -34,12 +40,7 @@ Meteor.methods({
       console.log(user.username, 'connected to', channel);
 
       // Increment usersOnline field for channel
-      if(channels.find({name: channel}).count()) {
-        channels.update({name: channel}, {$inc: {usersOnline: 1}});
-      } else {
-        var profane = swearjar.profane(channel);
-        channels.insert({name: channel, usersOnline: 1, profane: profane});
-      }
+      channels.update({name: channel}, {$inc: {usersOnline: 1}});
     }
   },
   disconnectChannel: function(channel, userId) {
