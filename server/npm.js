@@ -1,0 +1,1 @@
+// swearjar = Meteor.npmRequire('swearjar');

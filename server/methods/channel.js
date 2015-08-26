@@ -1,3 +1,6 @@
+swearjar = Meteor.npmRequire('swearjar');
+
+
 Meteor.methods({
   messageInsert: function(messageAttributes) {
     // check(Meteor.userId(), String);
@@ -16,6 +19,7 @@ Meteor.methods({
     var messageId = messages.insert(message);
   },
   connectChannel: function(channel, userId) {
+    // Channel name validations
     if(channel.length > 20) return;
 
     var channelName = 'channels.' + channel;
@@ -33,11 +37,13 @@ Meteor.methods({
       if(channels.find({name: channel}).count()) {
         channels.update({name: channel}, {$inc: {usersOnline: 1}});
       } else {
-        channels.insert({name: channel, usersOnline: 1});
+        var profane = swearjar.profane(channel);
+        channels.insert({name: channel, usersOnline: 1, profane: profane});
       }
     }
   },
   disconnectChannel: function(channel, userId) {
+    // Channel name validations
     if(channel.length > 20) return;
 
     Meteor.setTimeout(function() {
