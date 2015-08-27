@@ -1,5 +1,5 @@
 Meteor.startup(function() {
-  Meteor.setTimeout(function() {
+  Meteor.setInterval(function() {
     var openChannels = channels.find({});
 
     openChannels.forEach(function(channel) {
@@ -11,5 +11,5 @@ Meteor.startup(function() {
     });
 
     console.log('channel userCounts synced');
-  }, 5000);
+  }, 3600000);
 });
