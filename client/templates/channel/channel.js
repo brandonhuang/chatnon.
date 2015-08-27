@@ -2,11 +2,13 @@ Template.channel.helpers({
 });
 
 Template.channel.onRendered(function() {
-    //Scroll chat down onload - ghetto
+  //Scroll chat down onload - ghetto
 
-    Tracker.afterFlush(function() {
+  Tracker.afterFlush(function() {
     setTimeout(function() {
-      $('#messages').scrollTop($('#messages').prop("scrollHeight"));
+      $(".nano").nanoScroller();
+
+      $(".nano").nanoScroller({ scroll: 'bottom' });
     }, 100);
   })
 });

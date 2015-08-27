@@ -21,7 +21,8 @@ Template.message.onRendered(function() {
   var currentScrollHeight = $('#messages').prop("scrollHeight");
 
   if(currentScrollBottom >= currentScrollHeight - 50) {
-    $('#messages').scrollTop($('#messages').prop("scrollHeight"));
+    $(".nano").nanoScroller();
+    $(".nano").nanoScroller({ scroll: 'bottom' });
   }
 });
 
