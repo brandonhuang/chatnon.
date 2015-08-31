@@ -54,7 +54,7 @@ Template.message.events({
     // Clone array
     var muteList = Session.get("muteList").slice();
 
-    if(muteList.indexOf(this.username) == -1) muteList.push(this.username);
+    if(muteList.indexOf(this.status.lastLogin.ipAddr) == -1) muteList.push(this.username);
 
     Session.set('muteList', muteList);
   }
