@@ -21,6 +21,7 @@ Meteor.methods({
   connectChannel: function(channel, userId) {
     // Channel name validations
     if(channel.length > 20) return;
+    if(!/^[a-z0-9]*$/gi.test(channel)) return;
 
     // Create channel if it doesn't exist
     if(channels.find({name: channel}).count() === 0) {
@@ -46,6 +47,7 @@ Meteor.methods({
   disconnectChannel: function(channel, userId) {
     // Channel name validations
     if(channel.length > 20) return;
+    if(!/^[a-z0-9]*$/gi.test(channel)) return;
 
     Meteor.setTimeout(function() {
       var user = Meteor.users.findOne(userId);
