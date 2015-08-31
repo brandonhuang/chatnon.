@@ -1,0 +1,24 @@
+<template name="textToSpeech">
+  <div class="wrap">
+    <div id="chat">
+      <header>
+        {{> userColor}}
+        {{> userCount}}
+        {{> userLogin}}
+      </header>
+      <div id="messages" class="nano">
+        <div class="nano-content">
+          {{#each messages}}
+            {{> toSpeech}}
+          {{/each}}
+        </div>
+      </div>
+      {{#if currentUser}}
+        {{> messageForm}}
+      {{else}}
+        {{> messageFormLogin}}
+      {{/if}}
+    </div>
+    {{> googleMaps}}
+  </div>
+</template>
