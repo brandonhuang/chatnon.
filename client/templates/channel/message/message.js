@@ -48,13 +48,13 @@ Meteor.startup(function() {
 
 Template.message.events({
   'click .tag': function(e) {
-    if(Meteor.user().username === this.username) return;
+    // if(Meteor.user().ip === this.ip) return;
     if(!confirm('Mute this user?')) return;
 
     // Clone array
     var muteList = Session.get("muteList").slice();
 
-    if(muteList.indexOf(this.status.lastLogin.ipAddr) == -1) muteList.push(this.username);
+    if(muteList.indexOf(this.ip) == -1) muteList.push(this.ip);
 
     Session.set('muteList', muteList);
   }

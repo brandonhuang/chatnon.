@@ -8,7 +8,8 @@ Meteor.methods({
 
     check(messageAttributes, {
       text: String,
-      channel: String
+      channel: String,
+      ip: String
     });
 
     var message = _.extend(messageAttributes, {

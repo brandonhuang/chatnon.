@@ -9,7 +9,7 @@ Template.messageForm.events({
     var message = {
       text: $('#m').val().trim(),
       channel: Session.get('channel'),
-      ip: Meteor.user().status.lastLogin.ipAddr
+      ip: Session.get('ip')
     }
 
     $('#m').val("");
