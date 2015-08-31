@@ -31,7 +31,6 @@ Template.toSpeech.onRendered(function() {
   if(messageNum >= messages.find().count()) {
     var voices = window.speechSynthesis.getVoices();
     var text = new SpeechSynthesisUtterance(Template.parentData(0).text);
-    // text.voice = voices.filter(function(voice) { return voice.name == 'Google UK English Female'; })[0];
 
     text.pitch = 1.25;
 
