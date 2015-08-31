@@ -3,7 +3,8 @@ swearjar = Meteor.npmRequire('swearjar');
 
 Meteor.methods({
   messageInsert: function(messageAttributes) {
-    // check(Meteor.userId(), String);
+    // Message validations
+    if(messageAttributes.text.length > 140) return;
 
     check(messageAttributes, {
       text: String,
