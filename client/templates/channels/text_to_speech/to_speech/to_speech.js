@@ -2,6 +2,12 @@ var windowState = true;
 var firstLoad = true;
 var messageNum = 0;
 
+Tracker.autorun(function() {
+  if(Session.get('channel')) {
+    messageNum = 0;
+  }
+});
+
 $(window).blur(function() {
   windowState = false;
 });
@@ -26,9 +32,11 @@ Template.toSpeech.onRendered(function() {
     $(".nano").nanoScroller({ scroll: 'bottom' });
   }
 
-  // speechSynthesis if messages
+  // speechSynthesize if messages are new
   messageNum++;
+  console.log(messageNum, messages.find().count())
   if(messageNum >= messages.find().count()) {
+    console.log('talk')
     var voices = window.speechSynthesis.getVoices();
     var text = new SpeechSynthesisUtterance(Template.parentData(0).text);
 
