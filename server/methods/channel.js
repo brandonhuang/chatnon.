@@ -6,18 +6,25 @@ Meteor.methods({
     // Message validations
     if(messageAttributes.text.length > 140) return;
 
-    check(messageAttributes, {
-      text: String,
-      channel: String
-    });
 
     if(Meteor.user()) {
+      check(messageAttributes, {
+        text: String,
+        channel: String
+      });
+
       var message = _.extend(messageAttributes, {
         createdAt: new Date(),
         username: Meteor.user().username,
         color: Meteor.user().color
       });
     } else {
+      check(messageAttributes, {
+        text: String,
+        channel: String,
+        color: String
+      });
+
       var message = _.extend(messageAttributes, {
         createdAt: new Date(),
         username: 'chatnon'
