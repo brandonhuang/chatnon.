@@ -8,7 +8,8 @@ Meteor.methods({
 
     check(messageAttributes, {
       text: String,
-      channel: String
+      channel: String,
+      color: String
     });
 
     if(Meteor.user()) {
@@ -20,8 +21,7 @@ Meteor.methods({
     } else {
       var message = _.extend(messageAttributes, {
         createdAt: new Date(),
-        username: 'chatnon',
-        color: 'hsl(225, 40%, 40%)'
+        username: 'chatnon'
       });
     }
 
@@ -97,9 +97,12 @@ Meteor.methods({
       Meteor.users.update(userId, update);
     }, 500);
   },
-  newColor: function() {
+  newUserColor: function() {
     var color = generateColor();
     Meteor.users.update(Meteor.userId(), {$set: {color: color}});
+  },
+  generateColor: function() {
+    return generateColor();
   },
   updateLocation: function(location) {
     Meteor.users.update(Meteor.userId(), {$set: {location: location}});

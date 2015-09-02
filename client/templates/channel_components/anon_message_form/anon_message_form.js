@@ -8,7 +8,8 @@ Template.anonMessageForm.events({
 
     var message = {
       text: $('#m').val().trim(),
-      channel: Session.get('channel')
+      channel: Session.get('channel'),
+      color: Session.get('color')
     }
 
     $('#m').val("");
