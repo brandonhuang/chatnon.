@@ -20,7 +20,6 @@ Template.message.onRendered(function() {
   var currentScrollBottom = $('#messages').scrollTop() + $('#messages').height();
   var currentScrollHeight = $('#messages').prop("scrollHeight");
 
-  console.log(currentScrollBottom, currentScrollHeight)
   if(currentScrollBottom >= currentScrollHeight - 50) {
     $(".nano").nanoScroller();
     $(".nano").nanoScroller({ scroll: 'bottom' });
@@ -28,19 +27,7 @@ Template.message.onRendered(function() {
 });
 
 Template.message.helpers({
-  level: function() {
-    var exp = Meteor.users.findOne({username: this.username}).channels[this.channel].exp || 0;
-
-    var level = 1;
-    var comparator = 10;
-    while(exp > comparator) {
-      comparator = Math.pow(level * 10, 1.5);
-      level += 1;
-      exp -= comparator;
-    }
-
-    return level;
-  }
+  level: userLevel
 });
 
 Meteor.startup(function() {

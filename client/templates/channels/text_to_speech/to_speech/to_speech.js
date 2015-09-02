@@ -34,9 +34,7 @@ Template.toSpeech.onRendered(function() {
 
   // speechSynthesize if messages are new
   messageNum++;
-  console.log(messageNum, messages.find().count())
   if(messageNum >= messages.find().count()) {
-    console.log('talk')
     var voices = window.speechSynthesis.getVoices();
     var text = new SpeechSynthesisUtterance(Template.parentData(0).text);
 
@@ -47,19 +45,7 @@ Template.toSpeech.onRendered(function() {
 });
 
 Template.toSpeech.helpers({
-  level: function() {
-    var exp = Meteor.users.findOne({username: this.username}).channels[this.channel].exp || 0;
-
-    var level = 1;
-    var comparator = 10;
-    while(exp > comparator) {
-      comparator = Math.pow(level * 10, 1.5);
-      level += 1;
-      exp -= comparator;
-    }
-
-    return level;
-  }
+  level: userLevel
 });
 
 Meteor.startup(function() {

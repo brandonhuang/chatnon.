@@ -2,7 +2,7 @@ var msgCount = 0;
 var msgCache = [];
 var timeout = false;
 
-Template.messageForm.events({
+Template.anonMessageForm.events({
   'submit form': function(e) {
     e.preventDefault();
 

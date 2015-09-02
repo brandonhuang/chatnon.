@@ -11,11 +11,19 @@ Meteor.methods({
       channel: String
     });
 
-    var message = _.extend(messageAttributes, {
-      createdAt: new Date(),
-      username: Meteor.user().username,
-      color: Meteor.user().color
-    });
+    if(Meteor.user()) {
+      var message = _.extend(messageAttributes, {
+        createdAt: new Date(),
+        username: Meteor.user().username,
+        color: Meteor.user().color
+      });
+    } else {
+      var message = _.extend(messageAttributes, {
+        createdAt: new Date(),
+        username: 'chatnon',
+        color: 'hsl(225, 40%, 40%)'
+      });
+    }
 
     var messageId = messages.insert(message);
   },
