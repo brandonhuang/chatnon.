@@ -6,6 +6,10 @@ Accounts.validateNewUser(function (user) {
     throw new Meteor.Error(403, "Username already exists");
   }
 
+  if(user.username === 'chatnon') {
+    throw new Meteor.Error(403, 'The name chatnon is reserved.');
+  }
+
   return true
 });
 
