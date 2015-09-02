@@ -6,7 +6,6 @@ Meteor.methods({
     // Message validations
     if(messageAttributes.text.length > 140) return;
 
-
     if(Meteor.user()) {
       check(messageAttributes, {
         text: String,
@@ -30,6 +29,10 @@ Meteor.methods({
         username: 'chatnon'
       });
     }
+
+    // Anon users cannot talk in empty rooms
+    var channel = channels.find({name: message.channel});
+    if(channel.count() === 0 || channel.usersOnline <= 0) return;
 
     var messageId = messages.insert(message);
   },
