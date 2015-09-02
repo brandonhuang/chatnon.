@@ -8,8 +8,7 @@ Meteor.methods({
 
     check(messageAttributes, {
       text: String,
-      channel: String,
-      color: String
+      channel: String
     });
 
     if(Meteor.user()) {
