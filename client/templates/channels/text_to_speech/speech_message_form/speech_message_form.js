@@ -28,16 +28,21 @@ Template.speechMessageForm.events({
   }
 });
 
+setInterval(function() {
+  if(msgCount > 0) msgCount--;
+}, 5000);
+
 function validate(message) {
   // punitive validations
   if(isRepetitive(message.text)) {
     userTimeout(30000);
-    alert('You have been timed out for 30 seconds.');
+    alert('You have been timed out for 30 seconds');
   }
 
   // non-punitive validations
   if(isEmpty(message.text)) return false;
   if(isTooFast(msgCount)) return false;
+  if(isTooLong(message.text)) return false;
 
   return true;
 }
@@ -51,7 +56,6 @@ function userTimeout(duration) {
     timeout = false;
   }, 30000);
 }
-
 
 // Validation functions
 function cacheMessage(text) {
