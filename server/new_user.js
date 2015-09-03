@@ -10,6 +10,10 @@ Accounts.validateNewUser(function (user) {
     throw new Meteor.Error(403, 'The name chatnon is reserved.');
   }
 
+  if(swearjar.profane(user.username)) {
+    throw new Meteor.Error(403, 'Your name must not contain profanities');
+  }
+
   return true
 });
 
