@@ -19,7 +19,7 @@ Template.userColor.helpers({
 Template.userColor.events({
   'click': function(e) {
     if(Meteor.user()) {
-      Meteor.call('newColor');
+      Meteor.call('newUserColor');
     } else {
       Meteor.call('generateColor', function(err, color) {
         if(err) throw err;
