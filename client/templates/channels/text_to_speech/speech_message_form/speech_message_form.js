@@ -98,7 +98,7 @@ function isRepetitive(text) {
 }
 
 function isTooLong(text) {
-  if(text.length > 50) {
+  if(text.length > 100) {
     return true;
   }
   return false;

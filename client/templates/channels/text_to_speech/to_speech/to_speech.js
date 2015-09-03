@@ -35,12 +35,31 @@ Template.toSpeech.onRendered(function() {
   // speechSynthesize if messages are new
   messageNum++;
   if(messageNum >= messages.find().count()) {
-    var voices = window.speechSynthesis.getVoices();
-    var text = new SpeechSynthesisUtterance(Template.parentData(0).text);
+    var cancel = false;
+    var utterance = new SpeechSynthesisUtterance();
+    var voices = speechSynthesis.getVoices();
+    utterance.voice = voices[2];
+    utterance.voiceURI = 'native';
+    utterance.volume = 1;
+    utterance.rate = 1;
+    utterance.pitch = 1.25;
+    utterance.text = Template.parentData(0).text;
+    utterance.lang = 'en-US';
+    utterance.onend = function() {
+      speechSynthesis.cancel();
+    }
 
-    text.pitch = 1.25;
+    // Set timeout fixes things * don't worry this is the only good solution
+    Meteor.setTimeout(function() {
+      window.speechSynthesis.speak(utterance);
+    }, 0);
 
-    window.speechSynthesis.speak(text);
+    // If speech has not ended after 8 seconds, force end.
+    Meteor.setTimeout(function() {
+      if(!cancel) {
+        speechSynthesis.cancel();
+      }
+    }, 8000);
   }
 });
 
@@ -55,3 +74,5 @@ Meteor.startup(function() {
 Template.toSpeech.events({
   'click .tag': muteUser
 });
+
+// speech function fix
