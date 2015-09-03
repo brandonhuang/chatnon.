@@ -1,9 +1,5 @@
 markers = [];
 
-Meteor.startup(function() {
-  fetchLocation();
-});
-
 Template.googleMaps.onRendered(function() {
   // Initialize Google Maps
   var mapOptions = {
@@ -21,40 +17,8 @@ Template.googleMaps.onRendered(function() {
   })
 });
 
-function fetchLocation() {
-  navigator.geolocation.getCurrentPosition(geoSuccess);
-}
-
-function geoSuccess(location) {
-  var location = {
-    latitude: Math.round(location.coords.latitude * 25)/25,
-    longitude: Math.round(location.coords.longitude * 25)/25,
-  };
-  Meteor.call('updateLocation', location, function(err) {
-    if(err) throw err;
-  });
-};
-
-function addMarker(user) {
-  if($.isEmptyObject(user.location)) return;
-
-  var latlng = new google.maps.LatLng(user.location.latitude, user.location.longitude);
-  var marker = new UserMarker({
-    id: user.username,
-    latlng: latlng,
-    color: user.color,
-    map: map
-  });
-  markers.push(marker);
-}
-function removeMarker(user) {
-  if($.isEmptyObject(user.location)) return;
-
-  for(var i = 0; i < markers.length; i++) {
-    if(markers[i].id == user.username) {
-      markers[i].setMap(null);
-      markers.splice(i, 1);
-      break;
-    }
+Tracker.autorun(function() {
+  if(Meteor.userId()) {
+    fetchLocation();
   }
-}
+});
