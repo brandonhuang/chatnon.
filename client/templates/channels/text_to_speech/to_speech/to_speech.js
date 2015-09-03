@@ -42,11 +42,12 @@ Template.toSpeech.onRendered(function() {
     utterance.voiceURI = 'native';
     utterance.volume = 1;
     utterance.rate = 1;
-    utterance.pitch = 1.25;
+    utterance.pitch = 1.35;
     utterance.text = Template.parentData(0).text;
     utterance.lang = 'en-US';
     utterance.onend = function() {
       speechSynthesis.cancel();
+      cancel = true;
     }
 
     // Set timeout fixes things * don't worry this is the only good solution
