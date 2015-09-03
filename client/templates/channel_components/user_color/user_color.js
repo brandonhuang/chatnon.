@@ -20,12 +20,6 @@ Template.userColor.events({
   'click': function(e) {
     if(Meteor.user()) {
       Meteor.call('newUserColor');
-    } else {
-      Meteor.call('generateColor', function(err, color) {
-        if(err) throw err;
-
-        Session.setPersistent('color', color);
-      });
     }
   }
 })
