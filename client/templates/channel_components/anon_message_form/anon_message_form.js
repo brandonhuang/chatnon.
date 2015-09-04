@@ -9,7 +9,7 @@ Template.anonMessageForm.events({
     var message = {
       text: $('#m').val().trim(),
       channel: Session.get('channel'),
-      color: Session.get('color')
+      color: Session.get('color').replace('"', '');
     }
 
     $('#m').val("");
