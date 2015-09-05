@@ -7,12 +7,12 @@ $(window).blur(function() {
 $(window).focus(function() {
   windowState = true;
   $('#m').focus();
-  $('title').text('chatnon.');
+  $('title').text(Session.get('channel'));
 });
 
 Template.message.onCreated(function() {
   if(!windowState) {
-    $('title').text('! chatnon.');
+    $('title').text('! ' + Session.get('channel'));
   }
 });
 
