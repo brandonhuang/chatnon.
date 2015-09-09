@@ -1,4 +1,4 @@
-Meteor.publish('users', function() {
+Meteor.publish('users', function(channel) {
   return Meteor.users.find({}, {
     fields: {
       '_id': 1,
@@ -6,7 +6,7 @@ Meteor.publish('users', function() {
       'color': 1,
       'level': 1,
       'exp': 1,
-      'status': 1,
+      'status.online': 1,
       'location': 1,
       'channels': 1
     }
