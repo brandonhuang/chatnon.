@@ -8,6 +8,6 @@ Template.lastMessage.helpers({
     if(milliseconds < 120000) return milliseconds.getMinutes() + ' minute ago'
     if(milliseconds < 3600000) return milliseconds.getMinutes() + ' minutes ago';
     if(milliseconds < 7200000) return milliseconds.getHours() + 'hour ago'
-    return (milliseconds/3600000) + ' hours ago';
+    return Math.round(milliseconds/3600000) + ' hours ago';
   }
 });
