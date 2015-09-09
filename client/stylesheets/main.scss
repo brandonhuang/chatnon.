@@ -130,12 +130,13 @@ form {
   background-color: #ecf0f1;
 
   .message {
-    overflow-x: auto;
+    overflow: hidden;
     box-sizing: border-box;
     color: #333;
     color: white;
     font-size: 0.9;
     padding: 7px 5px 7px 10px;
+    word-wrap: break-word;
   }
 
   .tag {
