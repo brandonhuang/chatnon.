@@ -24,7 +24,6 @@ Template.message.onRendered(function() {
     $('#messages').stop().animate({scrollTop: $('#messages').prop("scrollHeight") }, 500, 'swing', function() { 
     });
   }
-  console.log('fire');
 });
 
 Template.message.helpers({
