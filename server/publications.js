@@ -31,5 +31,5 @@ Meteor.publish('channelStatus', function(channel) {
 });
 
 Meteor.publish('channels', function() {
-  return channels.find({});
+  return channels.find({usersOnline: {$gt: 0}});
 });

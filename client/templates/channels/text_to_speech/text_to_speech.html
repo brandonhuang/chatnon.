@@ -6,12 +6,10 @@
         {{> userCount}}
         {{> userLogin}}
       </header>
-      <div id="messages" class="nano">
-        <div class="nano-content">
-          {{#each messages}}
-            {{> toSpeech}}
-          {{/each}}
-        </div>
+      <div id="messages">
+        {{#each messages}}
+          {{> toSpeech}}
+        {{/each}}
       </div>
       {{#if currentUser}}
         {{> speechMessageForm}}
