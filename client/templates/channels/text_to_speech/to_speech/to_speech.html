@@ -1,10 +1,18 @@
 <template name="toSpeech">
   <div class="message" style="background-color: {{color}}">
     <div class="tag" style="color: {{color}}">
-      <span class="level" style="background-color: {{color}}">{{level}}</span>
-      {{username}}
+      <span class="level-box" style="background-color: {{color}}">
+        <span class="level">
+          {{level}}
+        </span>
+      </span>
+      <span class="username">
+        {{username}}
+      </span>
     </div>
-    {{text}}
+    <div class="text">
+      {{text}}
+    </div>
   </div>
 </template>
 
