@@ -1,7 +1,7 @@
-Template.channel.helpers({
+Template.textToSpeech.helpers({
 });
 
-Template.channel.onRendered(function() {
+Template.textToSpeech.onRendered(function() {
   //Scroll chat down onload - ghetto
 
   Tracker.afterFlush(function() {
