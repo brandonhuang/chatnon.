@@ -28,10 +28,9 @@ Template.toSpeech.onRendered(function() {
   var currentScrollHeight = $('#messages').prop("scrollHeight");
 
   if(currentScrollBottom >= currentScrollHeight - 50) {
-    $(".nano").nanoScroller();
-    $(".nano").nanoScroller({ scroll: 'bottom' });
+    $('#messages').stop().animate({scrollTop: $('#messages').prop("scrollHeight") }, 500, 'swing', function() { 
+    });
   }
-
   // speechSynthesize if messages are new
   messageNum++;
   if(messageNum >= messages.find().count()) {
