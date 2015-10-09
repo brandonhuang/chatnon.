@@ -1,6 +1,11 @@
 Template.lastMessage.helpers({
   time: function() {
     var lastMessage = messages.findOne({channel: Session.get('channel')}, {sort: {createdAt: -1}});
+
+    if(!lastMessage) {
+      return 'never';
+    }
+
     var milliseconds = new Date(new Date(TimeSync.serverTime(null, 1000)) - lastMessage.createdAt);
 
     if(milliseconds < 5000) return 'just now';
