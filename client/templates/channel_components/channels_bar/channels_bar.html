@@ -1,8 +1,7 @@
 <template name="channelsBar">
   <div class="channels-bar">
     {{#each channels}}
-      <a href="/{{name}}">{{name}}</a>
-      <span class="hyphen">-</span>
+      <a href="/{{name}}">{{name}} {{usersOnline}}</a>
     {{/each}}
   </div>
 </template>

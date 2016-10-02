@@ -28,9 +28,18 @@ body {
     text-decoration: none;
     font-size: 0.8em;
     text-transform: uppercase;
-  }
-  .hyphen {
-    padding: 0 3px;
+
+    &::after {
+      content: ' - ';
+      padding: 0 3px;
+    }
+
+    &:last-of-type {
+      &::after {
+        content: '';
+        padding: 0;
+      }
+    }
   }
 }
 
@@ -45,15 +54,15 @@ body {
 #chat {
   height: 100%;
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   float: left;
   border-radius: 5px 0 0 5px;
   overflow: hidden;
 }
 
-#map {
+#map, .iframe {
   height: 100%;
-  width: calc(100% - 600px);
+  width: calc(100% - 500px);
   float: left;
   border-radius: 0 5px 5px 0;
   overflow: hidden;
@@ -150,7 +159,7 @@ form {
     font-size: 0.85rem;
     cursor: pointer;
   }
-  
+
   .level-box {
     box-sizing: border-box;
     position: relative;
@@ -180,7 +189,7 @@ header {
     height: 100%;
     float: left;
   }
-  
+
   #user-color {
     height: 30px;
     width: 50px;
@@ -267,11 +276,11 @@ header {
     top: 0;
     transform: none;
   }
-  #chat, #map {
+  #chat, #map, .iframe {
     border-radius: 0;
     max-width: 100%;
   }
-  #map {
+  #map, .iframe {
     width: 100%;
   }
   #mobile-arrow {
@@ -304,28 +313,3 @@ header {
   line-height: normal;
   vertical-align: middle;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

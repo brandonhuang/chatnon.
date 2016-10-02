@@ -21,6 +21,7 @@ Accounts.onCreateUser(function(options, user) {
   user.color = generateColor();
   user.location = {};
   user.channels = {};
+  user.exp = 1;
 
   // Create a lower case version of username
   user.usernameLower = user.username.toLowerCase();

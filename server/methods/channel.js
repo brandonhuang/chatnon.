@@ -116,11 +116,9 @@ Meteor.methods({
   updateLocation: function(location) {
     Meteor.users.update(Meteor.userId(), {$set: {location: location}});
   },
-  expUp: function(user, channel, exp) {
-    var property = 'channels.' + channel + '.exp';
+  expUp: function(user, exp) {
     var update = {'$inc': {}};
-    update['$inc'][property] = exp;
-
+    update['$inc']['exp'] = exp;
     Meteor.users.update(user._id, update);
   }
 });

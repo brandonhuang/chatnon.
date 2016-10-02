@@ -18,7 +18,7 @@ Meteor.setInterval(function() {
     }
 
     if(exp > 0) {
-      Meteor.call('expUp', user, lastMessage.channel, exp);
+      Meteor.call('expUp', user, exp);
     }
   });
 }, 60000);
